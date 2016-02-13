@@ -18,8 +18,17 @@
 
 namespace DineroSDK\Entity;
 
+use DineroSDK\Exception\DineroException;
+use Doctrine\ORM\Mapping as ORM;
+
 class Contact
 {
+    /**
+     * GUID from Dinero
+     * @var string
+     */
+    protected $ContactGuid = null;
+
     /**
      * Your external id This can be used for ID'ing in external apps/services e.g. a web shop.
      * The maximum length is 128 characters
@@ -108,6 +117,43 @@ class Contact
      * @required
      */
     public $IsPerson;
+
+    /**
+     * Contact constructor.
+     * @param string $contacGuid
+     */
+    public function __construct(string $contacGuid = null)
+    {
+        $this->ContactGuid = $contacGuid;
+    }
+
+    /**
+     * @param string $contactGuid
+     * @return Contact
+     */
+    public function withContactGuid(string $contactGuid) : Contact
+    {
+        $contact = clone $this;
+        $contact->ContactGuid = $contactGuid;
+
+        return $contact;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactGuid()
+    {
+        return $this->ContactGuid;
+    }
+
+    /**
+     * @param string $contactGuid
+     */
+    public function setContactGuid($contactGuid)
+    {
+        throw new DineroException('You can\' set ContactGuid after entity creation. Use \'$contact->withContactGuid($contactGuid)\' to get a clone with the GUID set.');
+    }
 
     /**
      * @return string
@@ -338,7 +384,7 @@ class Contact
      */
     public function getIsPerson()
     {
-        return $this->IsPerson;
+        return (bool) $this->IsPerson;
     }
 
     /**
@@ -346,6 +392,6 @@ class Contact
      */
     public function setIsPerson($IsPerson)
     {
-        $this->IsPerson = $IsPerson;
+        $this->IsPerson = (bool) $IsPerson;
     }
 }

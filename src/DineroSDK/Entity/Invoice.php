@@ -18,8 +18,16 @@
 
 namespace DineroSDK\Entity;
 
+use DineroSDK\Exception\DineroException;
+
 class Invoice
 {
+    /**
+     * Guid from Dinero
+     * @var string
+     */
+    protected $Guid;
+
     /**
      * Number of days until payment deadline.
      * If PaymentConditionNumberOfDays AND PaymentConditionType is left empty
@@ -88,6 +96,34 @@ class Invoice
      * @var string
      */
     public $Address;
+
+    /**
+     * @param string $contactGuid
+     * @return Contact
+     */
+    public function withGuid(string $guid) : Invoice
+    {
+        $invoice = clone $this;
+        $invoice->Guid = $guid;
+
+        return $invoice;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGuid()
+    {
+        return $this->Guid;
+    }
+
+    /**
+     * @param string $Guid
+     */
+    public function setGuid($guid)
+    {
+        throw new DineroException('You can\' set Guid after entity creation. Use \'$invoice->withGuid($guid)\' to get a clone with the GUID set.');
+    }
 
     /**
      * @return int

@@ -96,7 +96,7 @@ class InvoiceLine
     }
 
     /**
-     * @param Money $BaseAmountValue
+     * @param float $BaseAmountValue
      */
     public function setBaseAmountValue($BaseAmountValue)
     {

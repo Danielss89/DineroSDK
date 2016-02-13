@@ -16,51 +16,16 @@
  * and is licensed under the MIT license.
  */
 
-namespace DineroSDK\Http;
-
-class DineroResponse implements DineroResponseInterface
-{
-    /**
-     * @var array
-     */
-    private $headers;
-    /**
-     * @var array
-     */
-    private $body;
-    /**
-     * @var int
-     */
-    private $httpStatusCode;
-
-    public function __construct(array $headers, string $body, int $httpStatusCode)
-    {
-        $this->headers = $headers;
-        $this->body = (!empty($body)) ? \GuzzleHttp\json_decode($body, true) : [];
-        $this->httpStatusCode = $httpStatusCode;
-    }
-
-    /**
-     * @return array
-     */
-    public function getHeaders() : array
-    {
-        return $this->headers;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBody() : array
-    {
-        return $this->body;
-    }
-
-    /**
-     * @return int
-     */
-    public function getHttpStatusCode() : int
-    {
-        return $this->httpStatusCode;
-    }
-}
+return [
+    'client_id' => '',
+    'client_secret' => '',
+    'api_key' => '',
+    'organization_id' => '',
+    'email_settings' => [
+        'Sender' => '',
+        'CcToSender' => '',
+        'Receiver' => '',
+        'Subject' => '',
+        'Message' => '', // MUST contain '[link-to-pdf]'
+    ],
+];
